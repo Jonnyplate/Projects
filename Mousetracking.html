@@ -17,27 +17,32 @@
     /* test trials */
 
    var test_stimuli = [
-       //Stimulus left
-        {blockade: {file: "img/blockade_schwarz.png"}, stimuli: {pawn: "img/pawn.png", king: "img/king.png", correct: 'left'}, BlposX: 'right', data: {Blockade: 'blockade_schwarz'}},
-        {blockade: {file: "img/blockade_rot.png"},stimuli: {pawn: "img/pawn.png", king: "img/king.png", correct: 'left' },BlposX: 'left', data: {Blockade: 'blockade_rot'}},
-        {blockade: {file: "img/blockade_schwarz.png"}, stimuli: {pawn: "img/pawn.png", king: "img/king.png", correct: 'left'}, BlposX: 'left', data: {Blockade: 'blockade_schwarz'}},
-        {blockade: {file: "img/blockade_rot.png"},stimuli: {pawn: "img/pawn.png", king: "img/king.png", correct: 'left'}, BlposX: 'right', data: {Blockade: 'blockade_rot'}},
-        //Stimulus right
-        {blockade: {file: "img/blockade_schwarz.png"}, stimuli: {pawn: "img/pawn.png", king: "img/king.png", correct: 'right'}, BlposX: 'right', data: {Blockade: 'blockade_schwarz'}},
-        {blockade: {file: "img/blockade_rot.png"},stimuli: {pawn: "img/pawn.png", king: "img/king.png", correct: 'right' },BlposX: 'left', data: {Blockade: 'blockade_rot'}},
-        {blockade: {file: "img/blockade_schwarz.png"}, stimuli: {pawn: "img/pawn.png", king: "img/king.png", correct: 'right'}, BlposX: 'left', data: {Blockade: 'blockade_schwarz'}},
-        {blockade: {file: "img/blockade_rot.png"},stimuli: {pawn: "img/pawn.png", king: "img/king.png", correct: 'right'}, BlposX: 'right', data: {Blockade: 'blockade_rot'}},
-  ]
-
+       // Time Bonus
+            //Stimulus left 
+            {time_Bonus: true,blockade: {file: "img/blockade_schwarz.png"}, stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'left'},  data: {Blockade: 'blockade_schwarz'}},
+            {time_Bonus: true,blockade: {file: "img/blockade_rot.png"},stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'left' }, data: {Blockade: 'blockade_rot'}},
+            //Stimulus right 
+            {time_Bonus: true,blockade: {file: "img/blockade_schwarz.png"}, stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'right'},  data: {Blockade: 'blockade_schwarz'}},
+            {time_Bonus: true,blockade: {file: "img/blockade_rot.png"},stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'right' }, data: {Blockade: 'blockade_rot'}},
+        // No Time Bonus
+            // Stimulus left
+            {time_Bonus: false,blockade: {file: "img/blockade_schwarz.png"}, stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'left'},  data: {Blockade: 'blockade_schwarz'}},
+            {time_Bonus: false,blockade: {file: "img/blockade_rot.png"},stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'left' }, data: {Blockade: 'blockade_rot'}},
+            //Stimulus right 
+            {time_Bonus: false,blockade: {file: "img/blockade_schwarz.png"}, stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'right'},  data: {Blockade: 'blockade_schwarz'}},
+            {time_Bonus: false,blockade: {file: "img/blockade_rot.png"},stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'right' }, data: {Blockade: 'blockade_rot'}},
+        
+    ]
     var trial = {
     type: 'rule-violation',
     words: 'test',
     blockade: jsPsych.timelineVariable('blockade'),
-    BlposX : jsPsych.timelineVariable('BlposX'),
     stimuli: jsPsych.timelineVariable('stimuli'),
     data: jsPsych.timelineVariable('data'),
     block_height: 200,
-    block_width: 300
+    block_width: 300,
+    time_Bonus: jsPsych.timelineVariable('time_Bonus'),
+    min_BonusTime: 1000 
     }
 
     var test_procedure = {
@@ -57,3 +62,4 @@
 
   </script> 
   </html>
+  

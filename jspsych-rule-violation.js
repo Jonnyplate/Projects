@@ -19,6 +19,18 @@ jsPsych.plugins["rule-violation"] = (function() {
         default: window.innerWidth,
         description: 'The width of the canvas.'
       },
+      time_Bonus: {
+        type: jsPsych.plugins.parameterType.BOOL,
+        pretty_name: 'Time Bonus',
+        default: 0 ,
+        description: 'Turn On and Off Bonus for fast and correct movement.'
+      },
+      min_BonusTime: {
+        type: jsPsych.plugins.parameterType.NUM,
+        pretty_name: 'Min Bonus Time',
+        default: 0 ,
+        description: 'Time limit for Bonus.'
+      },
       canvas_height: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Canvas height',
@@ -68,11 +80,6 @@ jsPsych.plugins["rule-violation"] = (function() {
 
   plugin.trial = function(display_element, trial) {
 
-    const elm_jspsych_content = document.getElementById('jspsych-content');
-    const style_jspsych_content = window.getComputedStyle(elm_jspsych_content); // stock
-    const default_maxWidth = style_jspsych_content.maxWidth;
-    elm_jspsych_content.style.maxWidth = 'none'; // The default value is '95%'. To fit the window.
-
     let new_html = '<canvas id="myCanvas" class="jspsych-canvas" width=' + trial.canvas_width + ' height=' + trial.canvas_height + ' style="background-color:' + '#fff' + ';"></canvas>';
     display_element.innerHTML = new_html;
 
@@ -81,8 +88,10 @@ jsPsych.plugins["rule-violation"] = (function() {
       alert('This browser does not support the canvas element.');
       return;
     }
-
+    
     const ctx = canvas.getContext('2d');
+    ctx.font = '18px Arial'; 
+    ctx.textAlign='center';
 
     trial.canvas = canvas;
     trial.context = ctx;
@@ -91,16 +100,27 @@ jsPsych.plugins["rule-violation"] = (function() {
     const centerX = canvas.width/2;
     const centerY = canvas.height/2;
     const rect_width= 50
-    
+    const conformity= Math.floor(Math.random() * 4) //25% probability for nonconformity
+    if (Math.floor(Math.random() * 2) < 1) {  // 50% probability for blockade to be on either side
+      trial.BlposX = 'left'
+    } else {
+      trial.BlposX = 'right'
+    }
+
     var mouse_position = []
-    var IT=0
-    var MT=0
+    let IT;
+    let MT;
+    let correct_reaction;
     let start_time;
+    var points =0 ;
+    var cw=canvas.width
+    var ch=canvas.height
+    var min_BonusTime = trial.min_BonusTime
     
 
     var rect_start = {
-      x:trial.canvas_width/2-rect_width/2,
-      y:trial.canvas_height-2*rect_width,
+      x:centerX-rect_width/2,
+      y:ch-2*rect_width,
       width:rect_width,
       height:rect_width
    };
@@ -119,26 +139,26 @@ jsPsych.plugins["rule-violation"] = (function() {
 
     canvas.addEventListener('click', start_button);
 
-  // Blockade 
+    // Blockade 
     block=trial.blockade
     block.img = new Image();
     block.img.src = trial.blockade.file
-    BlposY = trial.canvas_height/2
+    BlposY = centerY
     if (trial.BlposX == 'right') {
-      BlposX=trial.canvas_width/2+200
+      BlposX=centerX+200
     }
     else if (trial.BlposX == 'left') {
-      BlposX=trial.canvas_width/2 - (200+trial.block_width)
+      BlposX=centerX - (200+trial.block_width)
     } else {alert('Keine Blockadenposition')}
   
     //Stimuli
     stimuli=trial.stimuli
-    stimuli.img_pawn= new Image()
-    stimuli.img_pawn.src =stimuli.pawn
-    stimuli.img_king= new Image()
-    stimuli.img_king.src =stimuli.king
-    pawn=stimuli.img_pawn
-    king=stimuli.img_king
+    stimuli.img_1= new Image()
+    stimuli.img_1.src =stimuli.stim_1
+    stimuli.img_2= new Image()
+    stimuli.img_2.src =stimuli.stim_2
+    stim_1=stimuli.img_1
+    stim_2=stimuli.img_2
     Start_canvas(ctx)
   
     // functions 
@@ -147,7 +167,6 @@ jsPsych.plugins["rule-violation"] = (function() {
       ctx.strokeRect(rect_start.x,rect_start.y,rect_start.width,rect_start.height);
       ctx.strokeRect(rect_left.x,rect_left.y,rect_left.width,rect_left.height);
       ctx.strokeRect(rect_right.x,rect_right.y,rect_right.width,rect_right.height);
-      ctx.font = "30px Arial";
       draw_reminder()
     }
 
@@ -172,7 +191,7 @@ jsPsych.plugins["rule-violation"] = (function() {
 
     function movement_phase() {
     IT = performance.now() - start_time
-    ctx.clearRect(trial.canvas_width/2-200, trial.canvas_height/2-150, 400, 300);
+    ctx.clearRect(centerX-200, centerY-150, 400, 300);
     draw_blockade()
     canvas.addEventListener('click', finish_trial)
     canvas.addEventListener('mousemove',recordMousePosition)
@@ -202,22 +221,29 @@ jsPsych.plugins["rule-violation"] = (function() {
     }
 
     function draw_reminder() {
-     var cw=trial.canvas_width
-     var ch=trial.canvas_height
-    ctx.drawImage(pawn,cw/2-125,ch/2,50,50)
-    ctx.drawImage(king,cw/2+100,ch/2,50,50)
+     ctx.drawImage(stim_1,cw/2-125,ch/2-25,50,50)
+     ctx.drawImage(stim_2,cw/2+100,ch/2-25,50,50)
+
+      if (trial.time_Bonus) {
+        ctx.fillText('ZEITBONUS!',cw/2,ch/2+20)
+      } else {}
+
+      if (conformity <1) {
+        var reminder = 'Breche die Regel!'
+        ctx.fillText(reminder, cw/2,ch/2)
+      } else {
+        }
+
     }
 
-    function draw_stimulus(img) {
-      var cw=trial.canvas_width
-      var ch=trial.canvas_height
-      if (img=='left') {ctx.drawImage(pawn,cw/2-25,ch/2-25,50,50)
-       } else if (img=='right') { ctx.drawImage(king,cw/2-25,ch/2-25,50,50)
+    function draw_stimulus(stim) {
+      if (stim=='left') {ctx.drawImage(stim_1,cw/2-25,ch/2-25,50,50)
+       } else if (stim=='right') { ctx.drawImage(stim_2,cw/2-25,ch/2-25,50,50)
       } else {alert('Kein Stimulus ausgewaehlt')}
     }
 
     function show_stimulus() {
-      ctx.clearRect(trial.canvas_width/2-200, trial.canvas_height/2-150, 400, 300);
+      ctx.clearRect(centerX-200, centerY-150, 400, 300);
       draw_stimulus(stimuli.correct)
       draw_blockade();
       start_time =  performance.now();
@@ -226,24 +252,55 @@ jsPsych.plugins["rule-violation"] = (function() {
     function finish_trial(evt) {
       var mousePos = getMousePos(canvas, evt);
       if (isInside(mousePos,rect_left)) {
-        end_trial()
+        correct_reaction= stimuli.correct== 'left' 
+        feedback()
         } else if (isInside(mousePos,rect_right)) {
-          end_trial()
+          correct_reaction= stimuli.correct== 'right'
+          feedback()
         }
         else {
         }   
     }
+
+    function feedback(){
+      MT= performance.now() - IT
+      if (conformity == 0) {
+        correct_reaction = ! correct_reaction
+      }
+      if (correct_reaction){
+        if (trial.time_Bonus && MT<min_BonusTime) {
+          points=10
+        } else {
+          points=1
+        }
+      }
+
+      canvas.removeEventListener('mousemove',recordMousePosition)
+      canvas.removeEventListener('click', feedback);  
+      ctx.clearRect(0, ch/2-150, cw, 300); 
+      if (correct_reaction) {
+        ctx.fillText('RICHTIG! '+'+'+ points,cw/2,ch/2)
+        //ctx.fillText('Weiter mit Mausklick',cw/2,ch/2+20)
+      } else {
+        ctx.fillText('FALSCH!',cw/2,ch/2)
+        //ctx.fillText('Weiter mit Mausklick',cw/2,ch/2+20)
+      }
+      setTimeout(end_trial,500)
+    }
+
+  
     // end trial
     function end_trial() {
-      MT= performance.now() - IT
-      canvas.removeEventListener('click', finish_trial);
-      canvas.removeEventListener('mousemove',recordMousePosition)
+      canvas.removeEventListener('click', end_trial);   
+      
         // data saving
     var trial_data = {
       mousePosition: mouse_position,
       IT: IT,
       MT: MT,
-      start_time: start_time
+      start_time: start_time,
+      correct_reaction: correct_reaction,
+      Points: points
     };
       jsPsych.finishTrial(trial_data);
     }
