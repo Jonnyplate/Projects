@@ -16,7 +16,7 @@ jsPsych.plugins["rule-violation"] = (function() {
       canvas_width: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Canvas width',
-        default: window.innerWidth,
+        default: window.innerWidth*0.9,
         description: 'The width of the canvas.'
       },
       time_Bonus: {
@@ -34,7 +34,7 @@ jsPsych.plugins["rule-violation"] = (function() {
       canvas_height: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Canvas height',
-        default: window.innerHeight,
+        default: window.innerHeight*0.9,
         description: 'The height of the canvas.'
       },
       BlposX: {
