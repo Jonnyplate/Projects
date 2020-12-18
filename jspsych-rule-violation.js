@@ -229,7 +229,7 @@ jsPsych.plugins["rule-violation"] = (function() {
       } else {}
 
       if (conformity <1) {
-        var reminder = 'Breche die Regel!'
+        var reminder = 'Brich die Regel!'
         ctx.fillText(reminder, cw/2,ch/2)
       } else {
         }
