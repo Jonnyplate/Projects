@@ -16,11 +16,11 @@ jsPsych.plugins["rule-violation"] = (function() {
       canvas_width: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Canvas width',
-        default: window.innerWidth*0.9,
+        default: window.innerWidth*0.95,
         description: 'The width of the canvas.'
       },
       time_Bonus: {
-        type: jsPsych.plugins.parameterType.BOOL,
+        type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Time Bonus',
         default: 0 ,
         description: 'Turn On and Off Bonus for fast and correct movement.'
@@ -34,7 +34,7 @@ jsPsych.plugins["rule-violation"] = (function() {
       canvas_height: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Canvas height',
-        default: window.innerHeight*0.9,
+        default: window.innerHeight*0.95,
         description: 'The height of the canvas.'
       },
       BlposX: {
@@ -42,6 +42,12 @@ jsPsych.plugins["rule-violation"] = (function() {
         pretty_name: 'BlposX',
         default: 'center',
         description: 'The horizontal start position.'
+      },
+      Aim_pos: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Aim_pos',
+        default: 'center',
+        description: 'Position of Aim'
       },
       block_height: {
         type: jsPsych.plugins.parameterType.INT,
@@ -55,11 +61,11 @@ jsPsych.plugins["rule-violation"] = (function() {
         default: window.innerwidth/3,
         description: 'The width of the block.'
       },
-      stimuli: {
+      Symbol: {
         type: jsPsych.plugins.parameterType.COMPLEX, // 
-        array: false,
-        pretty_name: 'Stimuli',
-        description: 'The objects will be presented in the canvas.'
+        array: true,
+        pretty_name: 'Symbol',
+        description: 'The Object indicating, indicating the Aim.'
       },
       blockade: {
         type: jsPsych.plugins.parameterType.COMPLEX, // This is similar to the quesions of the survey-likert. 
@@ -80,6 +86,8 @@ jsPsych.plugins["rule-violation"] = (function() {
 
   plugin.trial = function(display_element, trial) {
 
+  
+
     let new_html = '<canvas id="myCanvas" class="jspsych-canvas" width=' + trial.canvas_width + ' height=' + trial.canvas_height + ' style="background-color:' + '#fff' + ';"></canvas>';
     display_element.innerHTML = new_html;
 
@@ -95,27 +103,27 @@ jsPsych.plugins["rule-violation"] = (function() {
 
     trial.canvas = canvas;
     trial.context = ctx;
+    
+    const ccw=canvas.width/1000
+    const cch=canvas.height/1000
 
     // Center of canvas
     const centerX = canvas.width/2;
     const centerY = canvas.height/2;
-    const rect_width= 50
-    const conformity= Math.floor(Math.random() * 4) //25% probability for nonconformity
-    if (Math.floor(Math.random() * 2) < 1) {  // 50% probability for blockade to be on either side
-      trial.BlposX = 'left'
-    } else {
-      trial.BlposX = 'right'
-    }
+    const rect_width= 40*ccw
+    const police= (Math.floor(Math.random() * 100) < 15) //15% probability for police
 
     var mouse_position = []
     let IT;
     let MT;
     let correct_reaction;
     let start_time;
-    var points =0 ;
+    var points = 0 ;
     var cw=canvas.width
     var ch=canvas.height
     var min_BonusTime = trial.min_BonusTime
+    trial.block_height = cch*420
+    trial.block_width = ccw*420
     
 
     var rect_start = {
@@ -125,17 +133,34 @@ jsPsych.plugins["rule-violation"] = (function() {
       height:rect_width
    };
     var rect_left = {
-      x:50,
-      y:50,
+      x:rect_width,
+      y:rect_width,
       width:rect_width,
       height:rect_width
     } ;
     var rect_right = {
-      x:trial.canvas_width-100,
-      y:50,
+      x:trial.canvas_width-rect_width*2,
+      y:rect_width,
       width:rect_width,
       height:rect_width
     };
+
+    BlposY = centerY
+    if (trial.BlposX == 'right') {
+      BlposX=centerX+ccw*100
+    }
+    else if (trial.BlposX == 'left') {
+      BlposX=centerX - (ccw*100+trial.block_width)
+    } else {alert('Keine Blockadenposition')}
+
+    var block_rect = {
+      x:BlposX,
+      y:BlposY,
+      width:trial.block_width,
+      height:trial.block_height
+    };
+
+ 
 
     canvas.addEventListener('click', start_button);
 
@@ -143,20 +168,14 @@ jsPsych.plugins["rule-violation"] = (function() {
     block=trial.blockade
     block.img = new Image();
     block.img.src = trial.blockade.file
-    BlposY = centerY
-    if (trial.BlposX == 'right') {
-      BlposX=centerX+200
-    }
-    else if (trial.BlposX == 'left') {
-      BlposX=centerX - (200+trial.block_width)
-    } else {alert('Keine Blockadenposition')}
+    
   
     //Stimuli
-    stimuli=trial.stimuli
+    stimuli=trial.Symbol
     stimuli.img_1= new Image()
-    stimuli.img_1.src =stimuli.stim_1
+    stimuli.img_1.src =trial.Symbol[0]
     stimuli.img_2= new Image()
-    stimuli.img_2.src =stimuli.stim_2
+    stimuli.img_2.src =trial.Symbol[1]
     stim_1=stimuli.img_1
     stim_2=stimuli.img_2
     Start_canvas(ctx)
@@ -164,10 +183,9 @@ jsPsych.plugins["rule-violation"] = (function() {
     // functions 
 
     function Start_canvas() {
-      ctx.strokeRect(rect_start.x,rect_start.y,rect_start.width,rect_start.height);
-      ctx.strokeRect(rect_left.x,rect_left.y,rect_left.width,rect_left.height);
-      ctx.strokeRect(rect_right.x,rect_right.y,rect_right.width,rect_right.height);
       draw_reminder()
+      setTimeout(draw_blockade,1000)
+      setTimeout(draw_rects,1000)
     }
 
     function start_button(evt) {
@@ -191,7 +209,7 @@ jsPsych.plugins["rule-violation"] = (function() {
 
     function movement_phase() {
     IT = performance.now() - start_time
-    ctx.clearRect(centerX-200, centerY-150, 400, 300);
+    ctx.clearRect(centerX-ccw*300, centerY-cch*200, ccw*600, cch*300);
     draw_blockade()
     canvas.addEventListener('click', finish_trial)
     canvas.addEventListener('mousemove',recordMousePosition)
@@ -214,37 +232,37 @@ jsPsych.plugins["rule-violation"] = (function() {
       return pos.x > rect.x && pos.x < rect.x+rect.width && pos.y < rect.y+rect.height && pos.y > rect.y
     }
     
+    function draw_rects() {
+      ctx.strokeRect(rect_start.x,rect_start.y,rect_start.width,rect_start.height);
+      ctx.strokeRect(rect_left.x,rect_left.y,rect_left.width,rect_left.height);
+      ctx.strokeRect(rect_right.x,rect_right.y,rect_right.width,rect_right.height); 
+    }
+
     function draw_blockade() {
-      var width=trial.block_width
-      var height=trial.block_height
-      ctx.drawImage(block.img,BlposX,BlposY-height/2,width,height);
+      var width=block_rect.width
+      var height=block_rect.height
+      ctx.drawImage(block.img,block_rect.x,block_rect.y-height/2,width,height);
     }
 
     function draw_reminder() {
-     ctx.drawImage(stim_1,cw/2-125,ch/2-25,50,50)
-     ctx.drawImage(stim_2,cw/2+100,ch/2-25,50,50)
-
-      if (trial.time_Bonus) {
-        ctx.fillText('ZEITBONUS!',cw/2,ch/2+20)
-      } else {}
-
-      if (conformity <1) {
-        var reminder = 'Brich die Regel!'
-        ctx.fillText(reminder, cw/2,ch/2)
-      } else {
+    ctx.drawImage(stim_1,cw/2-rect_width/2,ch/2-rect_width/2,rect_width,rect_width)
+    ctx.fillText('+'+trial.time_Bonus+'!',cw/2,ch/2+rect_width)
         }
+    
 
-    }
-
-    function draw_stimulus(stim) {
-      if (stim=='left') {ctx.drawImage(stim_1,cw/2-25,ch/2-25,50,50)
-       } else if (stim=='right') { ctx.drawImage(stim_2,cw/2-25,ch/2-25,50,50)
+    function draw_stimulus() {
+      if (trial.Aim_pos=='left') {
+        ctx.drawImage(stim_1,rect_left.x,rect_left.y,rect_width,rect_width)
+        ctx.drawImage(stim_2,rect_right.x,rect_right.y,rect_width,rect_width)
+       } else if (trial.Aim_pos=='right') { 
+         ctx.drawImage(stim_1,rect_right.x,rect_right.y,rect_width,rect_width)
+         ctx.drawImage(stim_2,rect_left.x,rect_left.y,rect_width,rect_width)
       } else {alert('Kein Stimulus ausgewaehlt')}
     }
 
     function show_stimulus() {
-      ctx.clearRect(centerX-200, centerY-150, 400, 300);
-      draw_stimulus(stimuli.correct)
+      ctx.clearRect(centerX-ccw*300, centerY-cch*200, ccw*600, cch*300);
+      draw_stimulus();
       draw_blockade();
       start_time =  performance.now();
     }
@@ -252,10 +270,10 @@ jsPsych.plugins["rule-violation"] = (function() {
     function finish_trial(evt) {
       var mousePos = getMousePos(canvas, evt);
       if (isInside(mousePos,rect_left)) {
-        correct_reaction= stimuli.correct== 'left' 
+        correct_reaction= trial.Aim_pos== 'left' 
         feedback()
         } else if (isInside(mousePos,rect_right)) {
-          correct_reaction= stimuli.correct== 'right'
+          correct_reaction= trial.Aim_pos== 'right'
           feedback()
         }
         else {
@@ -264,20 +282,15 @@ jsPsych.plugins["rule-violation"] = (function() {
 
     function feedback(){
       MT= performance.now() - IT
-      if (conformity == 0) {
-        correct_reaction = ! correct_reaction
-      }
-      if (correct_reaction){
-        if (trial.time_Bonus && MT<min_BonusTime) {
-          points=10
-        } else {
-          points=1
+        if ((MT+IT) <min_BonusTime && !police ) {
+          points=trial.time_Bonus
+        } else if (police) {
+          points = - 20           
         }
-      }
 
       canvas.removeEventListener('mousemove',recordMousePosition)
       canvas.removeEventListener('click', feedback);  
-      ctx.clearRect(0, ch/2-150, cw, 300); 
+      ctx.clearRect(0, rect_left.y + rect_width*2, cw, ch*0.6); 
       if (correct_reaction) {
         ctx.fillText('RICHTIG! '+'+'+ points,cw/2,ch/2)
         //ctx.fillText('Weiter mit Mausklick',cw/2,ch/2+20)
@@ -304,7 +317,8 @@ jsPsych.plugins["rule-violation"] = (function() {
     };
       jsPsych.finishTrial(trial_data);
     }
-  };
+
+  }
 
   return plugin;
 })();

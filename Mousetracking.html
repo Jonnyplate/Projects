@@ -13,35 +13,88 @@
   <script>
     /* create timeline */
     var timeline = [];
-    var images = ['img/blockade_schwarz.png',"img/blockade_schwarz.png","img/king.png","img/pawn.png"]
+    var Blockade_C ='img/Face_Mask.png'
+    var Blockade_N = "img/Zutritt_verboten.png"
+    var Symbol_1 ="img/king.png"
+    var Symbol_2 = "img/pawn.png"
+    var images = [Blockade_C,Blockade_N, Symbol_1, Symbol_2]
     /* test trials */
 
    var test_stimuli = [
-       // Time Bonus
-            //Stimulus left 
-            {time_Bonus: true,blockade: {file: "img/blockade_schwarz.png"}, stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'left'},  data: {Blockade: 'blockade_schwarz'}},
-            {time_Bonus: true,blockade: {file: "img/blockade_rot.png"},stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'left' }, data: {Blockade: 'blockade_rot'}},
-            //Stimulus right 
-            {time_Bonus: true,blockade: {file: "img/blockade_schwarz.png"}, stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'right'},  data: {Blockade: 'blockade_schwarz'}},
-            {time_Bonus: true,blockade: {file: "img/blockade_rot.png"},stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'right' }, data: {Blockade: 'blockade_rot'}},
-        // No Time Bonus
-            // Stimulus left
-            {time_Bonus: false,blockade: {file: "img/blockade_schwarz.png"}, stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'left'},  data: {Blockade: 'blockade_schwarz'}},
-            {time_Bonus: false,blockade: {file: "img/blockade_rot.png"},stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'left' }, data: {Blockade: 'blockade_rot'}},
-            //Stimulus right 
-            {time_Bonus: false,blockade: {file: "img/blockade_schwarz.png"}, stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'right'},  data: {Blockade: 'blockade_schwarz'}},
-            {time_Bonus: false,blockade: {file: "img/blockade_rot.png"},stimuli: {stim_1: "img/pawn.png", stim_2: "img/king.png", correct: 'right' }, data: {Blockade: 'blockade_rot'}},
+// Time Bonus + 1
+      // Block pos right
+        // Aim Symbol 1
+          // Aim pos right
+    {time_Bonus: 1,blockade: {file: Blockade_C}, Symbol: [Symbol_1, Symbol_2], Aim_pos: 'right', BlposX: 'right', data: {Blockade: Blockade_C}},
+    {time_Bonus: 1,blockade: {file: Blockade_N,} ,Symbol: [Symbol_1, Symbol_2] ,Aim_pos: 'right', BlposX: 'right', data: {Blockade: Blockade_N}},
+          // Aim pos left
+    {time_Bonus: 1,blockade: {file: Blockade_C}, Symbol: [Symbol_1, Symbol_2], Aim_pos: 'left', BlposX: 'right', data: {Blockade: Blockade_C}},
+    {time_Bonus: 1,blockade: {file: Blockade_N,},Symbol: [Symbol_1, Symbol_2] ,Aim_pos: 'left', BlposX: 'right', data: {Blockade: Blockade_N}},
+        // Aim Symbol 2
+          //Aim pos right 
+    {time_Bonus: 1,blockade: {file: Blockade_C}, Symbol:[Symbol_2, Symbol_1], Aim_pos: 'right', BlposX: 'right', data: {Blockade: Blockade_C}},
+    {time_Bonus: 1,blockade: {file: Blockade_N,},Symbol:[Symbol_2, Symbol_1], Aim_pos: 'right', BlposX: 'right', data: {Blockade: Blockade_N}},
+          // Aim pos left
+    {time_Bonus: 1,blockade: {file: Blockade_C}, Symbol:[Symbol_2, Symbol_1], Aim_pos: 'left', BlposX: 'right', data: {Blockade: Blockade_C}},
+    {time_Bonus: 1,blockade: {file: Blockade_N,},Symbol:[Symbol_2, Symbol_1], Aim_pos: 'left', BlposX: 'right', data: {Blockade: Blockade_N}},
+      // Block pos left
+        // Aim Symbol 1
+          // Aim pos right
+    {time_Bonus: 1,blockade: {file: Blockade_C}, Symbol: [Symbol_1, Symbol_2], Aim_pos: 'right', BlposX: 'left', data: {Blockade: Blockade_C}},
+    {time_Bonus: 1,blockade: {file: Blockade_N,},Symbol: [Symbol_1, Symbol_2] ,Aim_pos: 'right', BlposX: 'left', data: {Blockade: Blockade_N}},
+          // Aim pos left
+    {time_Bonus: 1,blockade: {file: Blockade_C}, Symbol: [Symbol_1, Symbol_2], Aim_pos: 'left', BlposX: 'left', data: {Blockade: Blockade_C}},
+    {time_Bonus: 1,blockade: {file: Blockade_N,},Symbol: [Symbol_1, Symbol_2] ,Aim_pos: 'left', BlposX: 'left', data: {Blockade: Blockade_N}},
+        // Aim Symbol 2
+          //Aim pos right 
+    {time_Bonus: 1,blockade: {file: Blockade_C}, Symbol:[Symbol_2, Symbol_1], Aim_pos: 'right', BlposX: 'left', data: {Blockade: Blockade_C}},
+    {time_Bonus: 1,blockade: {file: Blockade_N,},Symbol:[Symbol_2, Symbol_1], Aim_pos: 'right', BlposX: 'left', data: {Blockade: Blockade_N}},
+          // Aim pos left
+    {time_Bonus: 1,blockade: {file: Blockade_C}, Symbol:[Symbol_2, Symbol_1], Aim_pos: 'left', BlposX: 'left', data: {Blockade: Blockade_C}},
+    {time_Bonus: 1,blockade: {file: Blockade_N,},Symbol:[Symbol_2, Symbol_1], Aim_pos: 'left', BlposX: 'left', data: {Blockade: Blockade_N}},
+//Time Bonus + 10
+      // Block pos right
+        // Aim Symbol 1
+          // Aim pos right
+    {time_Bonus: 10,blockade: {file: Blockade_C}, Symbol: [Symbol_1, Symbol_2], Aim_pos: 'right', BlposX: 'right', data: {Blockade: Blockade_C}},
+    {time_Bonus: 10,blockade: {file: Blockade_N,},Symbol: [Symbol_1, Symbol_2] ,Aim_pos: 'right', BlposX: 'right', data: {Blockade: Blockade_N}},
+          // Aim pos left
+    {time_Bonus: 10,blockade: {file: Blockade_C}, Symbol: [Symbol_1, Symbol_2], Aim_pos: 'left', BlposX: 'right', data: {Blockade: Blockade_C}},
+    {time_Bonus: 10,blockade: {file: Blockade_N,},Symbol: [Symbol_1, Symbol_2] ,Aim_pos: 'left', BlposX: 'right', data: {Blockade: Blockade_N}},
+        // Aim Symbol 2
+          //Aim pos right 
+    {time_Bonus: 10,blockade: {file: Blockade_C}, Symbol:[Symbol_2, Symbol_1], Aim_pos: 'right', BlposX: 'right', data: {Blockade: Blockade_C}},
+    {time_Bonus: 10,blockade: {file: Blockade_N,},Symbol:[Symbol_2, Symbol_1], Aim_pos: 'right', BlposX: 'right', data: {Blockade: Blockade_N}},
+          // Aim pos left
+    {time_Bonus: 10,blockade: {file: Blockade_C}, Symbol:[Symbol_2, Symbol_1], Aim_pos: 'left', BlposX: 'right', data: {Blockade: Blockade_C}},
+    {time_Bonus: 10,blockade: {file: Blockade_N,},Symbol:[Symbol_2, Symbol_1], Aim_pos: 'left', BlposX: 'right', data: {Blockade: Blockade_N}},
+      // Block pos left
+        // Aim Symbol 1
+          // Aim pos right
+    {time_Bonus: 10,blockade: {file: Blockade_C}, Symbol: [Symbol_1, Symbol_2], Aim_pos: 'right', BlposX: 'left', data: {Blockade: Blockade_C}},
+    {time_Bonus: 10,blockade: {file: Blockade_N,},Symbol: [Symbol_1, Symbol_2] ,Aim_pos: 'right', BlposX: 'left', data: {Blockade: Blockade_N}},
+          // Aim pos left
+    {time_Bonus: 10,blockade: {file: Blockade_C}, Symbol: [Symbol_1, Symbol_2], Aim_pos: 'left', BlposX: 'left', data: {Blockade: Blockade_C}},
+    {time_Bonus: 10,blockade: {file: Blockade_N,},Symbol: [Symbol_1, Symbol_2] ,Aim_pos: 'left', BlposX: 'left', data: {Blockade: Blockade_N}},
+        // Aim Symbol 2
+          //Aim pos right 
+    {time_Bonus: 10,blockade: {file: Blockade_C}, Symbol:[Symbol_2, Symbol_1], Aim_pos: 'right', BlposX: 'left', data: {Blockade: Blockade_C}},
+    {time_Bonus: 10,blockade: {file: Blockade_N,},Symbol:[Symbol_2, Symbol_1], Aim_pos: 'right', BlposX: 'left', data: {Blockade: Blockade_N}},
+          // Aim pos left
+    {time_Bonus: 10,blockade: {file: Blockade_C}, Symbol:[Symbol_2, Symbol_1], Aim_pos: 'left', BlposX: 'left', data: {Blockade: Blockade_C}},
+    {time_Bonus: 10,blockade: {file: Blockade_N,},Symbol:[Symbol_2, Symbol_1], Aim_pos: 'left', BlposX: 'left', data: {Blockade: Blockade_N}},           
         
     ]
     var trial = {
     type: 'rule-violation',
     words: 'test',
     blockade: jsPsych.timelineVariable('blockade'),
-    stimuli: jsPsych.timelineVariable('stimuli'),
     data: jsPsych.timelineVariable('data'),
-    block_height: 200,
-    block_width: 300,
     time_Bonus: jsPsych.timelineVariable('time_Bonus'),
+    Symbol: jsPsych.timelineVariable('Symbol'),
+    Aim_pos: jsPsych.timelineVariable('Aim_pos'),
+    BlposX : jsPsych.timelineVariable('BlposX'), // Blockadeposition (rechts vs links)
+
     min_BonusTime: 1000 
     }
 
