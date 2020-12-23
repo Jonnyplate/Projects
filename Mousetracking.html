@@ -15,8 +15,8 @@
     var timeline = [];
     var Blockade_C ='img/Face_Mask.png'
     var Blockade_N = "img/Zutritt_verboten.png"
-    var Symbol_1 ="img/Laeufer.png"
-    var Symbol_2 = "img/Dame.png"
+    var Symbol_1 ="img/King_2.png"
+    var Symbol_2 = "img/pawn.png"
     var Police = "img/Police.png"
     var Star = "img/Star.png"
     var images = [Blockade_C,Blockade_N, Symbol_1, Symbol_2,Police, Star]
@@ -87,7 +87,10 @@
     {time_Bonus: 10,blockade: {file: Blockade_N,},Symbol:[Symbol_2, Symbol_1], Aim_pos: 'left', BlposX: 'left', data: {Blockade: Blockade_N}},           
         
     ]
-    var trial = {
+
+    var trespasses = 0
+
+    var practice_1 = {
     type: 'rule-violation',
     words: 'test',
     blockade: jsPsych.timelineVariable('blockade'),
@@ -96,17 +99,33 @@
     Symbol: jsPsych.timelineVariable('Symbol'),
     Aim_pos: jsPsych.timelineVariable('Aim_pos'),
     BlposX : jsPsych.timelineVariable('BlposX'), // Blockadeposition (rechts vs links)
-    min_BonusTime: 3000 
+    min_BonusTime: 3000,
+    on_start: function(trial) {
+      if (trespasses == 1) { trial.police = true}
+      else {trial.police= (Math.floor(Math.random() * 100) < 15)}
+    },
+    on_finish: function(trial_data) {
+    if (trial_data.trespass) {trespasses = trespasses + 1 }
+    } 
     }
 
+    var practice_procedure = {
+      timeline: [practice_1],
+      timeline_variables: test_stimuli,
+      sample: {
+        type: 'without-replacement',
+        size: 5
+    }
+    }
+/*
     var test_procedure = {
       timeline: [trial],
       timeline_variables: test_stimuli,
       randomize_order: true,
       repetitions: 1
     }
-
-    timeline.push(test_procedure);
+*/
+    timeline.push(practice_procedure);
     jsPsych.init({
       timeline: timeline,
       preload_images: images,

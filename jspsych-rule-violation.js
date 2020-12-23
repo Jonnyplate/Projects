@@ -67,6 +67,12 @@ jsPsych.plugins["rule-violation"] = (function() {
         pretty_name: 'Symbol',
         description: 'The Object indicating, indicating the Aim.'
       },
+      police: {
+        type: jsPsych.plugins.parameterType.BOOL, // 
+        pretty_name: 'Police',
+        default: false,
+        description: 'Police'
+      },
       blockade: {
         type: jsPsych.plugins.parameterType.COMPLEX, // This is similar to the quesions of the survey-likert. 
         array: false,
@@ -112,7 +118,8 @@ jsPsych.plugins["rule-violation"] = (function() {
     const centerX = canvas.width/2;
     const centerY = canvas.height/2;
     const rect_width= 40*ccw
-    const police= (Math.floor(Math.random() * 100) < 15) //15% probability for police
+    const police=trial.police  //15% probability for police
+    
     var trespass=false
 
     var mouse_position = []
@@ -199,6 +206,7 @@ jsPsych.plugins["rule-violation"] = (function() {
       var mousePos = getMousePos(canvas, evt);
       if (isInside(mousePos,rect_start)) {
       show_stimulus();
+      draw_rects()
       canvas.removeEventListener('click', start_button);
       canvas.addEventListener('mousemove', initiation_phase)
       }else{
@@ -333,13 +341,14 @@ jsPsych.plugins["rule-violation"] = (function() {
       
         // data saving
     var trial_data = {
-      mousePosition: mouse_position,
       IT: IT,
       MT: MT,
       start_time: start_time,
       correct_reaction: correct_reaction,
-      Points: points,
-      trespass: tresspass 
+      points: points,
+      trespass: trespass,
+      block_in_the_way: trial.Aim_pos == trial.BlposX,
+      mousePosition: mouse_position
     };
       jsPsych.finishTrial(trial_data);
     }
