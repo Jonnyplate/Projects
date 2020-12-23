@@ -15,9 +15,11 @@
     var timeline = [];
     var Blockade_C ='img/Face_Mask.png'
     var Blockade_N = "img/Zutritt_verboten.png"
-    var Symbol_1 ="img/king.png"
-    var Symbol_2 = "img/pawn.png"
-    var images = [Blockade_C,Blockade_N, Symbol_1, Symbol_2]
+    var Symbol_1 ="img/Laeufer.png"
+    var Symbol_2 = "img/Dame.png"
+    var Police = "img/Police.png"
+    var Star = "img/Star.png"
+    var images = [Blockade_C,Blockade_N, Symbol_1, Symbol_2,Police, Star]
     /* test trials */
 
    var test_stimuli = [
@@ -94,8 +96,7 @@
     Symbol: jsPsych.timelineVariable('Symbol'),
     Aim_pos: jsPsych.timelineVariable('Aim_pos'),
     BlposX : jsPsych.timelineVariable('BlposX'), // Blockadeposition (rechts vs links)
-
-    min_BonusTime: 1000 
+    min_BonusTime: 3000 
     }
 
     var test_procedure = {

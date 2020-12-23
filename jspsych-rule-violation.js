@@ -98,20 +98,22 @@ jsPsych.plugins["rule-violation"] = (function() {
     }
     
     const ctx = canvas.getContext('2d');
-    ctx.font = '18px Arial'; 
+    ctx.font = '20px Arial'; 
     ctx.textAlign='center';
 
     trial.canvas = canvas;
     trial.context = ctx;
     
-    const ccw=canvas.width/1000
     const cch=canvas.height/1000
+    const ccw=cch/9*16
+ 
 
     // Center of canvas
     const centerX = canvas.width/2;
     const centerY = canvas.height/2;
     const rect_width= 40*ccw
     const police= (Math.floor(Math.random() * 100) < 15) //15% probability for police
+    var trespass=false
 
     var mouse_position = []
     let IT;
@@ -125,6 +127,7 @@ jsPsych.plugins["rule-violation"] = (function() {
     trial.block_height = cch*420
     trial.block_width = ccw*420
     
+    
 
     var rect_start = {
       x:centerX-rect_width/2,
@@ -133,13 +136,13 @@ jsPsych.plugins["rule-violation"] = (function() {
       height:rect_width
    };
     var rect_left = {
-      x:rect_width,
+      x:centerX-rect_width-ccw*450,
       y:rect_width,
       width:rect_width,
       height:rect_width
     } ;
     var rect_right = {
-      x:trial.canvas_width-rect_width*2,
+      x:centerX +ccw*450,
       y:rect_width,
       width:rect_width,
       height:rect_width
@@ -155,7 +158,7 @@ jsPsych.plugins["rule-violation"] = (function() {
 
     var block_rect = {
       x:BlposX,
-      y:BlposY,
+      y:BlposY - trial.block_height/2,
       width:trial.block_width,
       height:trial.block_height
     };
@@ -169,7 +172,11 @@ jsPsych.plugins["rule-violation"] = (function() {
     block.img = new Image();
     block.img.src = trial.blockade.file
     
-  
+    Star= new Image()
+    Star.src= "img/Star.png"
+    Police= new Image()
+    Police.src= "img/Police.png"
+    
     //Stimuli
     stimuli=trial.Symbol
     stimuli.img_1= new Image()
@@ -207,6 +214,7 @@ jsPsych.plugins["rule-violation"] = (function() {
       }   
     } 
 
+
     function movement_phase() {
     IT = performance.now() - start_time
     ctx.clearRect(centerX-ccw*300, centerY-cch*200, ccw*600, cch*300);
@@ -218,6 +226,10 @@ jsPsych.plugins["rule-violation"] = (function() {
     function recordMousePosition(evt) {
       var mousePos = getMousePos(canvas, evt);
       mouse_position.push(mousePos)
+      if (isInside(mousePos, block_rect)) {
+        trespass =true
+      }
+    
     }
 
     function getMousePos(canvas, event) {
@@ -241,7 +253,7 @@ jsPsych.plugins["rule-violation"] = (function() {
     function draw_blockade() {
       var width=block_rect.width
       var height=block_rect.height
-      ctx.drawImage(block.img,block_rect.x,block_rect.y-height/2,width,height);
+      ctx.drawImage(block.img,block_rect.x,block_rect.y,width,height);
     }
 
     function draw_reminder() {
@@ -281,26 +293,39 @@ jsPsych.plugins["rule-violation"] = (function() {
     }
 
     function feedback(){
-      MT= performance.now() - IT
-        if ((MT+IT) <min_BonusTime && !police ) {
+      MT= performance.now() - start_time - IT
+        if (police && trespass) {
+          points = - 20 
+        } else if ((MT+IT) <min_BonusTime && correct_reaction)  {
           points=trial.time_Bonus
-        } else if (police) {
-          points = - 20           
         }
 
       canvas.removeEventListener('mousemove',recordMousePosition)
       canvas.removeEventListener('click', feedback);  
       ctx.clearRect(0, rect_left.y + rect_width*2, cw, ch*0.6); 
       if (correct_reaction) {
-        ctx.fillText('RICHTIG! '+'+'+ points,cw/2,ch/2)
+        ctx.fillText('RICHTIG!',centerX,centerY)
         //ctx.fillText('Weiter mit Mausklick',cw/2,ch/2+20)
       } else {
-        ctx.fillText('FALSCH!',cw/2,ch/2)
+        ctx.fillText('FALSCH!',centerX,centerY)
         //ctx.fillText('Weiter mit Mausklick',cw/2,ch/2+20)
       }
-      setTimeout(end_trial,500)
+      setTimeout(feedback_points,500)
     }
 
+    function feedback_points() {
+      ctx.clearRect(0, rect_left.y + rect_width*2, cw, ch*0.6); 
+      if (police && trespass) {
+      ctx.drawImage(Police, centerX +-2*rect_width,centerY-5*rect_width,4*rect_width,4*rect_width)
+      ctx.fillText('-20!',centerX,centerY)
+      } else if ((MT+IT) <min_BonusTime && correct_reaction)  {
+        ctx.drawImage(Star,centerX-1.5*rect_width,centerY-1.7*rect_width,3*rect_width,3*rect_width)
+        ctx.fillText('+'+points+'!',centerX,centerY)
+      } else {
+        ctx.fillText('+0!',centerX,centerY)
+      }
+      setTimeout(end_trial,2000)
+    }
   
     // end trial
     function end_trial() {
@@ -313,7 +338,8 @@ jsPsych.plugins["rule-violation"] = (function() {
       MT: MT,
       start_time: start_time,
       correct_reaction: correct_reaction,
-      Points: points
+      Points: points,
+      trespass: tresspass 
     };
       jsPsych.finishTrial(trial_data);
     }
