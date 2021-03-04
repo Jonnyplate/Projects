@@ -1,0 +1,17 @@
+trial_type,trial_index,subject,rt,responses,question_order,prolific_PID,study_ID,session_ID
+survey-text,5,50303yjswuo92fo,3973.0,"{""age"":""29""}",,5ebeeb2d47d7182bb7855b52,5f5a55364e9b770ed21874ff,5f60d752196795054b70f2f6
+survey-multi-choice,6,50303yjswuo92fo,23510.0,"{""gender"":""female"",""school"":""others"",""education"":""Completed university degree or equivalent""}","[0,1,2]",5ebeeb2d47d7182bb7855b52,5f5a55364e9b770ed21874ff,5f60d752196795054b70f2f6
+survey-text,5,bu5uxt5s13e01cg,17216.44499991089,"{""age"":""21""}",,5d5b1ca95d31e300163ddf44,5f5a55364e9b770ed21874ff,5f60d7c84e199105f3e991f3
+survey-multi-choice,6,bu5uxt5s13e01cg,35230.53999990225,"{""gender"":""female"",""school"":""middle school/secondary school/ graduation from polytechnic high school"",""education"":""Completed university degree or equivalent""}","[0,1,2]",5d5b1ca95d31e300163ddf44,5f5a55364e9b770ed21874ff,5f60d7c84e199105f3e991f3
+survey-text,5,f7pef121e494f23,4346.9850000110455,"{""age"":""38""}",,5d3b01aaa1e2fc00184aacaf,5f5a55364e9b770ed21874ff,5f60d8b20ef802057d6f087f
+survey-multi-choice,6,f7pef121e494f23,25557.390000001757,"{""gender"":""male"",""school"":""high school"",""education"":""Completed university degree or equivalent""}","[0,1,2]",5d3b01aaa1e2fc00184aacaf,5f5a55364e9b770ed21874ff,5f60d8b20ef802057d6f087f
+survey-text,5,mr7ebs5rbr1c53k,3929.659999907017,"{""age"":""18""}",,5f1f105f0d08f80a4388c3f8,5f5a55364e9b770ed21874ff,5f60d802d3c8f904f60dd1b9
+survey-multi-choice,6,mr7ebs5rbr1c53k,71842.81999990344,"{""gender"":""female"",""school"":""others"",""education"":""High school graduate, diploma or equivalent""}","[0,1,2]",5f1f105f0d08f80a4388c3f8,5f5a55364e9b770ed21874ff,5f60d802d3c8f904f60dd1b9
+survey-text,5,p53ptvde1njwm1j,2210.9850000000006,"{""age"":""18""}",,5f39969af06eda1376816f70,5f5a55364e9b770ed21874ff,5f60d79030a67d0598d60d12
+survey-multi-choice,6,p53ptvde1njwm1j,21337.31,"{""gender"":""female"",""school"":""high school"",""education"":""Still in training/ university""}","[0,1,2]",5f39969af06eda1376816f70,5f5a55364e9b770ed21874ff,5f60d79030a67d0598d60d12
+survey-text,7,p53ptvde1njwm1j,11464.080000000029,"{""education_text"":""Medicine""}",,5f39969af06eda1376816f70,5f5a55364e9b770ed21874ff,5f60d79030a67d0598d60d12
+survey-text,5,s17m8vql4qbvgyh,3963.4300000034273,"{""age"":""19""}",,5eefa9973c8aa108eca301dc,5f5a55364e9b770ed21874ff,5f60d6e709bc4d043a51d9a4
+survey-multi-choice,6,s17m8vql4qbvgyh,22815.179999975957,"{""gender"":""female"",""school"":""others"",""education"":""Still in training/ university""}","[0,1,2]",5eefa9973c8aa108eca301dc,5f5a55364e9b770ed21874ff,5f60d6e709bc4d043a51d9a4
+survey-text,7,s17m8vql4qbvgyh,31720.31999999308,"{""education_text"":""I'm currently a university student in my second year.""}",,5eefa9973c8aa108eca301dc,5f5a55364e9b770ed21874ff,5f60d6e709bc4d043a51d9a4
+survey-text,5,xy62lkd6js3teu3,3033.670000004349,"{""age"":""30""}",,5bfbff5763fc010001526679,5f5a55364e9b770ed21874ff,5f60d7ae0ef802052beba70c
+survey-multi-choice,6,xy62lkd6js3teu3,12121.064999999362,"{""gender"":""female"",""school"":""others"",""education"":""Completed university degree or equivalent""}","[0,1,2]",5bfbff5763fc010001526679,5f5a55364e9b770ed21874ff,5f60d7ae0ef802052beba70c

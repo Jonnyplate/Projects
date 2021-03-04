@@ -1,0 +1,57 @@
+trial_type,trial_index,subject,rt,responses,question_order,prolific_PID,study_ID,session_ID
+survey-likert,1127,50303yjswuo92fo,13477.0,"{""difficult"":1,""demanding"":1,""attentive"":3}","[0,1,2]",5ebeeb2d47d7182bb7855b52,5f5a55364e9b770ed21874ff,5f60d752196795054b70f2f6
+survey-text,1128,50303yjswuo92fo,18647.0,"{""noticed"":""No"",""presumption"":""No""}",,5ebeeb2d47d7182bb7855b52,5f5a55364e9b770ed21874ff,5f60d752196795054b70f2f6
+survey-multi-choice,1129,50303yjswuo92fo,11755.0,"{""question_cue_choice"":""<span style='color: dodgerblue; font-size: 28px'>O</span>""}",[0],5ebeeb2d47d7182bb7855b52,5f5a55364e9b770ed21874ff,5f60d752196795054b70f2f6
+survey-text,1130,50303yjswuo92fo,27922.0,"{""forget_cue_text"":""Nothing - carried on with the task"",""remember_cue_text"":""Named the object in my head""}",,5ebeeb2d47d7182bb7855b52,5f5a55364e9b770ed21874ff,5f60d752196795054b70f2f6
+survey-likert,1132,50303yjswuo92fo,21475.0,"{""suspicion_likert"":1,""trying_forget"":0}","[0,1]",5ebeeb2d47d7182bb7855b52,5f5a55364e9b770ed21874ff,5f60d752196795054b70f2f6
+survey-text,1133,50303yjswuo92fo,19362.0,"{""suspicion_text"":""I did not suspect this"",""comments"":""None""}",,5ebeeb2d47d7182bb7855b52,5f5a55364e9b770ed21874ff,5f60d752196795054b70f2f6
+survey-multi-choice,1134,50303yjswuo92fo,3870.0,"{""post_disturbed"":""yes""}",[0],5ebeeb2d47d7182bb7855b52,5f5a55364e9b770ed21874ff,5f60d752196795054b70f2f6
+survey-likert,1135,50303yjswuo92fo,13589.0,"{""serious_selection"":0}",[0],5ebeeb2d47d7182bb7855b52,5f5a55364e9b770ed21874ff,5f60d752196795054b70f2f6
+survey-likert,1142,bu5uxt5s13e01cg,36170.530000003055,"{""difficult"":3,""demanding"":3,""attentive"":3}","[0,1,2]",5d5b1ca95d31e300163ddf44,5f5a55364e9b770ed21874ff,5f60d7c84e199105f3e991f3
+survey-text,1143,bu5uxt5s13e01cg,23569.239999866117,"{""noticed"":"""",""presumption"":""""}",,5d5b1ca95d31e300163ddf44,5f5a55364e9b770ed21874ff,5f60d7c84e199105f3e991f3
+survey-multi-choice,1144,bu5uxt5s13e01cg,9156.965000089258,"{""question_cue_choice"":""<span style='color: dodgerblue; font-size: 28px'>O</span>""}",[0],5d5b1ca95d31e300163ddf44,5f5a55364e9b770ed21874ff,5f60d7c84e199105f3e991f3
+survey-text,1145,bu5uxt5s13e01cg,59855.1949998364,"{""forget_cue_text"":""Just try to not think about it."",""remember_cue_text"":""Say the name of the object in my head and think of anything that it reminds me of.""}",,5d5b1ca95d31e300163ddf44,5f5a55364e9b770ed21874ff,5f60d7c84e199105f3e991f3
+survey-likert,1147,bu5uxt5s13e01cg,25152.520000003282,"{""suspicion_likert"":0,""trying_forget"":1}","[0,1]",5d5b1ca95d31e300163ddf44,5f5a55364e9b770ed21874ff,5f60d7c84e199105f3e991f3
+survey-text,1148,bu5uxt5s13e01cg,8666.53999988921,"{""suspicion_text"":"""",""comments"":""""}",,5d5b1ca95d31e300163ddf44,5f5a55364e9b770ed21874ff,5f60d7c84e199105f3e991f3
+survey-multi-choice,1149,bu5uxt5s13e01cg,3565.195000031963,"{""post_disturbed"":""yes""}",[0],5d5b1ca95d31e300163ddf44,5f5a55364e9b770ed21874ff,5f60d7c84e199105f3e991f3
+survey-likert,1150,bu5uxt5s13e01cg,7748.535000020638,"{""serious_selection"":0}",[0],5d5b1ca95d31e300163ddf44,5f5a55364e9b770ed21874ff,5f60d7c84e199105f3e991f3
+survey-likert,1139,f7pef121e494f23,8899.900000003632,"{""difficult"":3,""demanding"":3,""attentive"":4}","[0,1,2]",5d3b01aaa1e2fc00184aacaf,5f5a55364e9b770ed21874ff,5f60d8b20ef802057d6f087f
+survey-text,1140,f7pef121e494f23,47329.50999999605,"{""noticed"":""Nothing noticed"",""presumption"":""I would guess it was to register people's memory, and the ability to do things quickly.""}",,5d3b01aaa1e2fc00184aacaf,5f5a55364e9b770ed21874ff,5f60d8b20ef802057d6f087f
+survey-multi-choice,1141,f7pef121e494f23,9853.134999997914,"{""question_cue_choice"":""<span style='color: dodgerblue; font-size: 28px'>O</span>""}",[0],5d3b01aaa1e2fc00184aacaf,5f5a55364e9b770ed21874ff,5f60d8b20ef802057d6f087f
+survey-text,1142,f7pef121e494f23,15339.995000001974,"{""forget_cue_text"":""Forgot the image"",""remember_cue_text"":""Remembered the image""}",,5d3b01aaa1e2fc00184aacaf,5f5a55364e9b770ed21874ff,5f60d8b20ef802057d6f087f
+survey-likert,1144,f7pef121e494f23,17693.10499999812,"{""suspicion_likert"":0,""trying_forget"":0}","[0,1]",5d3b01aaa1e2fc00184aacaf,5f5a55364e9b770ed21874ff,5f60d8b20ef802057d6f087f
+survey-text,1145,f7pef121e494f23,58579.07500000157,"{""suspicion_text"":""I did not have any suspicions the instructions were reversed"",""comments"":""I assumed we had to forget them as that was as instructed""}",,5d3b01aaa1e2fc00184aacaf,5f5a55364e9b770ed21874ff,5f60d8b20ef802057d6f087f
+survey-multi-choice,1146,f7pef121e494f23,3692.5200000111945,"{""post_disturbed"":""yes""}",[0],5d3b01aaa1e2fc00184aacaf,5f5a55364e9b770ed21874ff,5f60d8b20ef802057d6f087f
+survey-likert,1147,f7pef121e494f23,7957.4149999967785,"{""serious_selection"":0}",[0],5d3b01aaa1e2fc00184aacaf,5f5a55364e9b770ed21874ff,5f60d8b20ef802057d6f087f
+survey-likert,1287,mr7ebs5rbr1c53k,13159.42999906838,"{""difficult"":3,""demanding"":3,""attentive"":4}","[0,1,2]",5f1f105f0d08f80a4388c3f8,5f5a55364e9b770ed21874ff,5f60d802d3c8f904f60dd1b9
+survey-text,1288,mr7ebs5rbr1c53k,9468.62499974668,"{""noticed"":"""",""presumption"":""""}",,5f1f105f0d08f80a4388c3f8,5f5a55364e9b770ed21874ff,5f60d802d3c8f904f60dd1b9
+survey-multi-choice,1289,mr7ebs5rbr1c53k,12388.600001111628,"{""question_cue_choice"":""<span style='color: dodgerblue; font-size: 28px'>O</span>""}",[0],5f1f105f0d08f80a4388c3f8,5f5a55364e9b770ed21874ff,5f60d802d3c8f904f60dd1b9
+survey-text,1290,mr7ebs5rbr1c53k,33005.56000135839,"{""forget_cue_text"":""did not repeatt the symbol"",""remember_cue_text"":""remembered the symbol""}",,5f1f105f0d08f80a4388c3f8,5f5a55364e9b770ed21874ff,5f60d802d3c8f904f60dd1b9
+survey-likert,1292,mr7ebs5rbr1c53k,11506.595000624655,"{""suspicion_likert"":2,""trying_forget"":2}","[0,1]",5f1f105f0d08f80a4388c3f8,5f5a55364e9b770ed21874ff,5f60d802d3c8f904f60dd1b9
+survey-text,1293,mr7ebs5rbr1c53k,7686.170000582933,"{""suspicion_text"":"""",""comments"":""""}",,5f1f105f0d08f80a4388c3f8,5f5a55364e9b770ed21874ff,5f60d802d3c8f904f60dd1b9
+survey-multi-choice,1294,mr7ebs5rbr1c53k,4791.9449992477885,"{""post_disturbed"":""yes""}",[0],5f1f105f0d08f80a4388c3f8,5f5a55364e9b770ed21874ff,5f60d802d3c8f904f60dd1b9
+survey-likert,1295,mr7ebs5rbr1c53k,12037.990000098944,"{""serious_selection"":0}",[0],5f1f105f0d08f80a4388c3f8,5f5a55364e9b770ed21874ff,5f60d802d3c8f904f60dd1b9
+survey-likert,1152,p53ptvde1njwm1j,11113.060000000289,"{""difficult"":1,""demanding"":1,""attentive"":3}","[0,1,2]",5f39969af06eda1376816f70,5f5a55364e9b770ed21874ff,5f60d79030a67d0598d60d12
+survey-text,1153,p53ptvde1njwm1j,117658.1499999999,"{""noticed"":"""",""presumption"":""to determine how trying to memorise something affects response time""}",,5f39969af06eda1376816f70,5f5a55364e9b770ed21874ff,5f60d79030a67d0598d60d12
+survey-multi-choice,1154,p53ptvde1njwm1j,7966.3350000001965,"{""question_cue_choice"":""<span style='color: dodgerblue; font-size: 28px'>O</span>""}",[0],5f39969af06eda1376816f70,5f5a55364e9b770ed21874ff,5f60d79030a67d0598d60d12
+survey-text,1155,p53ptvde1njwm1j,84434.73500000034,"{""forget_cue_text"":""I tried to forget the image "",""remember_cue_text"":""I tried to remember the image ""}",,5f39969af06eda1376816f70,5f5a55364e9b770ed21874ff,5f60d79030a67d0598d60d12
+survey-likert,1157,p53ptvde1njwm1j,33332.885000000715,"{""suspicion_likert"":1,""trying_forget"":1}","[0,1]",5f39969af06eda1376816f70,5f5a55364e9b770ed21874ff,5f60d79030a67d0598d60d12
+survey-text,1158,p53ptvde1njwm1j,12205.245000000112,"{""suspicion_text"":"""",""comments"":""""}",,5f39969af06eda1376816f70,5f5a55364e9b770ed21874ff,5f60d79030a67d0598d60d12
+survey-multi-choice,1159,p53ptvde1njwm1j,3442.2350000003357,"{""post_disturbed"":""yes""}",[0],5f39969af06eda1376816f70,5f5a55364e9b770ed21874ff,5f60d79030a67d0598d60d12
+survey-likert,1160,p53ptvde1njwm1j,8983.674999999814,"{""serious_selection"":0}",[0],5f39969af06eda1376816f70,5f5a55364e9b770ed21874ff,5f60d79030a67d0598d60d12
+survey-likert,1133,s17m8vql4qbvgyh,10205.190000007859,"{""difficult"":2,""demanding"":4,""attentive"":4}","[0,1,2]",5eefa9973c8aa108eca301dc,5f5a55364e9b770ed21874ff,5f60d6e709bc4d043a51d9a4
+survey-text,1134,s17m8vql4qbvgyh,6788.990000000922,"{""noticed"":"""",""presumption"":""""}",,5eefa9973c8aa108eca301dc,5f5a55364e9b770ed21874ff,5f60d6e709bc4d043a51d9a4
+survey-multi-choice,1135,s17m8vql4qbvgyh,6735.09999999078,"{""question_cue_choice"":""<span style='color: dodgerblue; font-size: 28px'>O</span>""}",[0],5eefa9973c8aa108eca301dc,5f5a55364e9b770ed21874ff,5f60d6e709bc4d043a51d9a4
+survey-text,1136,s17m8vql4qbvgyh,74780.30000001309,"{""forget_cue_text"":""When this symbol appeared, I made my decision rather quickly since I didn't have to memorize the image."",""remember_cue_text"":""When this symbol appeared I also made my decision quickly, but I made a mental note of the image.""}",,5eefa9973c8aa108eca301dc,5f5a55364e9b770ed21874ff,5f60d6e709bc4d043a51d9a4
+survey-likert,1138,s17m8vql4qbvgyh,26199.78500000434,"{""suspicion_likert"":0,""trying_forget"":0}","[0,1]",5eefa9973c8aa108eca301dc,5f5a55364e9b770ed21874ff,5f60d6e709bc4d043a51d9a4
+survey-text,1139,s17m8vql4qbvgyh,11315.094999998111,"{""suspicion_text"":"""",""comments"":""""}",,5eefa9973c8aa108eca301dc,5f5a55364e9b770ed21874ff,5f60d6e709bc4d043a51d9a4
+survey-multi-choice,1140,s17m8vql4qbvgyh,3038.2250000257045,"{""post_disturbed"":""yes""}",[0],5eefa9973c8aa108eca301dc,5f5a55364e9b770ed21874ff,5f60d6e709bc4d043a51d9a4
+survey-likert,1141,s17m8vql4qbvgyh,7481.619999976829,"{""serious_selection"":0}",[0],5eefa9973c8aa108eca301dc,5f5a55364e9b770ed21874ff,5f60d6e709bc4d043a51d9a4
+survey-likert,1139,xy62lkd6js3teu3,10674.06999999378,"{""difficult"":3,""demanding"":2,""attentive"":4}","[0,1,2]",5bfbff5763fc010001526679,5f5a55364e9b770ed21874ff,5f60d7ae0ef802052beba70c
+survey-text,1140,xy62lkd6js3teu3,20363.064999997616,"{""noticed"":""No"",""presumption"":""Checking whether memory makes reactions slower?""}",,5bfbff5763fc010001526679,5f5a55364e9b770ed21874ff,5f60d7ae0ef802052beba70c
+survey-multi-choice,1141,xy62lkd6js3teu3,6344.975000000093,"{""question_cue_choice"":""<span style='color: dodgerblue; font-size: 28px'>O</span>""}",[0],5bfbff5763fc010001526679,5f5a55364e9b770ed21874ff,5f60d7ae0ef802052beba70c
+survey-text,1142,xy62lkd6js3teu3,16678.620000005933,"{""forget_cue_text"":""I tried to forget the object"",""remember_cue_text"":""I tried to remember the object""}",,5bfbff5763fc010001526679,5f5a55364e9b770ed21874ff,5f60d7ae0ef802052beba70c
+survey-likert,1144,xy62lkd6js3teu3,17832.12999999523,"{""suspicion_likert"":1,""trying_forget"":0}","[0,1]",5bfbff5763fc010001526679,5f5a55364e9b770ed21874ff,5f60d7ae0ef802052beba70c
+survey-text,1145,xy62lkd6js3teu3,33124.55000000773,"{""suspicion_text"":""I didn't think we would have to remember them."",""comments"":""While the experiment was interesting it was very hard to remain focused towards the end.""}",,5bfbff5763fc010001526679,5f5a55364e9b770ed21874ff,5f60d7ae0ef802052beba70c
+survey-multi-choice,1146,xy62lkd6js3teu3,2326.004999995232,"{""post_disturbed"":""yes""}",[0],5bfbff5763fc010001526679,5f5a55364e9b770ed21874ff,5f60d7ae0ef802052beba70c
+survey-likert,1147,xy62lkd6js3teu3,2575.7400000002235,"{""serious_selection"":0}",[0],5bfbff5763fc010001526679,5f5a55364e9b770ed21874ff,5f60d7ae0ef802052beba70c

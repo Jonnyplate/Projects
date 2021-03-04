@@ -1,0 +1,175 @@
+<!-- 
+    this file runs the experiment
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Schnitzeljagd</title>
+    <meta charset="UTF-8">
+    <!-- CSS -->
+    <link rel="stylesheet" href="JSPsych-master/css/jspsych.css">
+    <link rel="stylesheet" href="customcss.css">     
+    
+    <!-- import pavlovia stuff -->
+    <script type="text/javascript" src="lib/vendors/jspsych-6.0.0/jspsych.js"></script>
+    <link href="lib/vendors/jspsych-6.0.0/css/jspsych.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="lib/vendors/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="lib/jspsych-pavlovia-3.2.0.js"></script>
+
+    <!-- plugins 
+    <script src="JSPsych-master/jspsych.js"></script>
+    <script src='JSPsych-master/plugins/jquery.min.js'></script>-->
+    <script src="JSPsych-master/plugins/jspsych-html-keyboard-response.js"></script> 
+    <script src="JSPsych-master/plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="JSPsych-master/plugins/jspsych-html-button-response.js"></script>
+    <script src="JSPsych-master/plugins/jspsych-survey-likert.js"></script>
+    <script src="JSPsych-master/plugins/jspsych-survey-text.js"></script>
+    <script src="JSPsych-master/plugins/jspsych-survey-multi-choice.js"></script>
+
+    <!-- custom plugin for this paradigm -->
+    <script src="jspsych-rule-violation.js"></script>
+
+    <!-- custom experiment files -->
+    <script src="ExperimentFiles/functions.js"></script>
+    <script src="ExperimentFiles/setup.js"></script>
+    <script src="ExperimentFiles/trials.js"></script>
+    <script src="ExperimentFiles/instructions.js"></script>S
+    <script src="ExperimentFiles/survey.js"></script>
+
+</head>
+<body>
+<script>
+
+/* #####################################################################
+    Pavlovia setup
+##################################################################### */
+
+var pavlovia_init = {
+    type: "pavlovia",
+    command: "init",
+    on_finish: function() {
+        console.log("done with Pavlovia");
+    }
+    };
+timeline.push(pavlovia_init);
+
+var pavlovia_finish = {
+    type: "pavlovia",
+    command: "finish",
+    participantId: ID
+};
+
+/* #####################################################################
+            defining the experiment parts
+##################################################################### */
+
+var welcome = {
+    timeline: [
+        welcome_1,
+        question_device,
+        informed_consent, 
+        demographics,
+    ],
+}
+
+timeline.push(welcome);
+
+var practice = {
+    timeline: [
+        instruction_practice1,
+        practice_1,
+        instruction_practice2,
+        practice_2,
+    ],
+}
+
+timeline.push(practice);
+
+var experiment = {
+    timeline: [ 
+        instruction_main,
+        main_experiment,
+    ],
+}
+
+timeline.push(experiment);
+
+var ending = {
+    timeline: [
+        instruction_end_1,
+        question_strategy,
+        questions_corona,
+        questions_rulebreaking,
+        question_strategy,
+        debriefing
+    ],
+}
+
+timeline.push(ending);
+
+timeline.push(pavlovia_finish);
+
+/* #####################################################################
+            Run the experiment
+##################################################################### */
+
+jsPsych.init({
+    timeline: timeline,
+    preload_images: images,
+    use_webaudio: false,
+    on_trial_finish: function(data) {
+        data.exp_part = exp_part_current;
+        data.BlockNumber = BlockNumber;
+        //....
+    },
+    on_interaction_data_update: function() {
+        //console.log(n_blur Mal das Fenster verlassen);
+        let get_interactions = jsPsych.data.getInteractionData();
+        let interaction_data = JSON.parse(get_interactions.json());
+        let last_event = interaction_data[interaction_data.length - 1];
+        if (!pause) {
+            if (last_event["event"] === "blur") {
+                n_blur ++;
+            }
+            if (n_blur > 2) {
+                consent = false;
+                console.log("exiting the experiment");
+                jsPsych.endExperiment('<p><strong>Ende</strong></p>' +
+                    'Leider haben Sie das Fenster mehr als ein mal verlassen. ' +
+                    'Daher mussten wir das Experiment leider vorzeitig beenden.');
+            }
+        }
+    },
+    on_finish: function() {
+        //jsPsych.data.displayData();
+        if(consent == true){
+        var points_cum = jsPsych.data.get().filter({exp_part: 'main'}).select('TrialPoints').sum();
+        document.body.innerHTML = '<p> Bitte warten. Sie werden weitergeleitet.</p>'
+        setTimeout(function () { 
+                window.location.href = "https://www.unipark.de/uc/fr_uni_inst_psych_allg/1519/?a="+points_cum}
+            , 10000)
+        }
+        /*/sona integration
+        if(consent == true){
+        document.body.innerHTML = '<p> Bitte warten. Sie werden auf die Sona Seite zur Verbuchung Ihrer VP-Stunden weitergeleitet.</p>'
+        setTimeout(function () { 
+                window.location.href = "https://psychologie-freiburg.sona-systems.com/webstudy_credit.aspx?experiment_id=798&credit_token=0283aaccace9488b804365fe6c0e531d&survey_code=XXXX" + urlvar.participant}
+            , 10000)
+        }*/
+    }
+});
+
+</script>
+
+</body>
+</html>
+
+<!--
+Code credit:Jonas Plate, Salomé Li Keintzel,
+            Hannah Dames
+Authors:    Christina Pfeuffer
+
+Cognitive Computation Lab & Cognition, Action, and Sustainability Unit
+University of Freiburg, Jan 2021
+-->

@@ -1,0 +1,231 @@
+<!--
+This file contains the main file for running the directed forgetting 
+learning curve experiment using the JSPsych library (english version).
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- CSS stuff -->
+    <link rel='stylesheet' type='text/css' href='corsi/css/default_style.css'>
+    <link rel='stylesheet' type='text/css' href='corsi/css/style.css'>
+    <link rel="stylesheet" href="JSPsych-master/css/jspsych.css">
+
+    <!-- import pavlovia stuff -->
+
+    <!-- import plugins  -->
+     <!-- <script src="JSPsych-master/jspsych.js"></script> -->
+
+    <script src="JSPsych-master/plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="JSPsych-master/plugins/jspsych-categorize-image.js"></script>
+    <script src="JSPsych-master/plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="JSPsych-master/plugins/jspsych-html-button-response.js"></script>
+    <script src="JSPsych-master/plugins/jspsych-survey-likert.js"></script>
+    <script src="JSPsych-master/plugins/jspsych-survey-text.js"></script>
+    <script src="JSPsych-master/plugins/jspsych-survey-multi-choice.js"></script>
+    <script src="JSPsych-master/plugins/jspsych-fullscreen.js"></script>
+    <script src='JSPsych-master/plugins/jquery.min.js'></script>
+    <!-- import custom files -->
+    <script src="ExperimentFiles/functions.js"></script>
+    <script src="ExperimentFiles/setup.js"></script>
+    <script src="ExperimentFiles/instructions.js"></script>
+    <script src="ExperimentFiles/survey_questions.js"></script>
+    <script src="ExperimentFiles/trials.js"></script>
+    <script src="ExperimentFiles/blocks.js"></script>
+    <!-- import corsi files -->
+    <script src="corsi/ExperimentFiles/instructions.js"></script>
+    <script src="corsi/ExperimentFiles/functions.js"></script>
+    <script src="corsi/ExperimentFiles/setup.js"></script>
+    <script src="corsi/ExperimentFiles/trials.js"></script>
+    <script src="corsi/ExperimentFiles/blocks.js"></script>
+</head>
+<body></body>
+<script>
+
+/* #####################################################################
+        Pavlovia setup
+##################################################################### */
+
+
+/* #####################################################################
+     Define segments of the experiment 
+##################################################################### */
+
+var welcome_demographics = {
+        timeline: [
+            welcome,
+            demographics,
+            instruction_1
+        ],
+        on_start: function() {
+            $('body').css('cursor', 'default')
+        },
+        on_finish: function() {
+            $('body').css('cursor', 'none')
+        }
+
+    };
+
+timeline.push(welcome_demographics);
+
+var practice_1 = {
+        timeline: [
+            instruction_2,
+            practice_instruction_1,
+            block_practice,
+            instr_break_feedback,
+            instr_after_practice_1
+        ],
+        // repeat if the participant pressed "z"
+        loop_function: function() {
+            var data = jsPsych.data.get().last(1).values()[0];
+            return data.key_press === KEYS_JS.BACK;
+        }
+    };
+   
+timeline.push(practice_1);
+
+var practice_2 = { // one-time repetition of practice_2 
+        timeline: [
+            instruction_3,
+            instruction_4,
+            practice_instruction_3,
+            block_practice_cue,
+            instr_break_feedback,
+            practice_instruction_4,
+            practice_instruction_5,
+            block_practice_recognition,
+            instr_after_practice_2
+        ],
+        // repeat if the participant pressed "Z"
+        loop_function: function() {
+            var data = jsPsych.data.get().last(1).values()[0];
+            return data.key_press === KEYS_JS.BACK;
+        },
+    };
+timeline.push(practice_2);
+
+var primes = {
+        timeline: [
+            instruction_6,
+            block_prime,
+            instr_break_feedback,
+            block_prime,
+            instr_break_feedback,
+            block_prime,
+            instr_break_feedback,
+            block_prime,
+            end_break
+        ],
+        
+    };
+timeline.push(primes);
+
+        
+var corsi = {
+        timeline: [
+            corsi_instruction_1,
+            corsi_spans
+            ],
+            on_start: function() {
+            exp_part_current = "corsi";
+        }
+    };
+ timeline.push(corsi);
+
+var probe = {
+        timeline: [
+            instr_probe,
+            block_probe,
+            instr_end_probe
+        ],
+        on_start: function() {
+            $('body').css('cursor', 'none')
+        }        
+    };
+timeline.push(probe);
+
+var debriefing = {
+        timeline: [
+            ending,
+            instr_end,
+            ////////////////////////////////////////////////////////////////////
+            pavlovia_finish
+            ////////////////////////////////////////////////////////////////////
+        ],
+        on_start: function() {
+            $('body').css('cursor', 'default')
+        }
+    };
+timeline.push(debriefing);
+
+/* #####################################################################
+            Go!
+##################################################################### */
+
+    // init variables to record browser interactions
+    jsPsych.init({
+        timeline: timeline,
+        use_webaudio: false,
+        preload_images: all_images,
+        on_trial_finish: function(data) {
+            // write experiment part
+            data.exp_part = exp_part_current;
+
+            //add prolific stuff
+            data.prolific_PID = urlvar.PROLIFIC_PID;
+            data.study_ID = urlvar.STUDY_ID;
+            data.session_ID = urlvar.SESSION_ID;
+            // write use/dont_use stuff
+            let last_trial = jsPsych.data.getLastTrialData();
+            // use all trials with types in specified in use_types
+            let use_types = ["categorize-image", "survey-text", "survey-multi-choice",
+                "html-button-response", "survey-likert"];
+            let last_trial_type = JSON.parse(last_trial.json())[0]["trial_type"];
+            data.use = use_types.indexOf(last_trial_type)!== -1;
+        },
+        // control browser interactions and quit when the participant exits the
+        // window more than two times outside a break or instruction slide
+        on_interaction_data_update: function() {
+            // console.log(n_blur);
+            let get_interactions = jsPsych.data.getInteractionData();
+            let interaction_data = JSON.parse(get_interactions.json());
+            let last_event = interaction_data[interaction_data.length - 1];
+            if (!pause) {
+               if (last_event["event"] === "blur") {
+                    n_blur ++;
+                }
+                if (n_blur > 2) {
+                    consent = false;
+                    console.log("exiting the experiment");
+                    jsPsych.endExperiment('<p><strong>End</strong></p>' +
+                        'Unfortunately, you have left the tab/ browser windows more than two times. ' +
+                        'As told you in the beginning of the experiment, we therefore have to end this experiment prematurely and we cannot grant you any credit.');
+                }
+                }
+
+        },
+        on_finish: function() {
+            //sona integration
+            if(consent == true){
+                document.body.innerHTML = '<p> Please wait. You are redirected to Prolific to book your credit.</p>'
+            setTimeout(function () { 
+                 window.location.href = "https://app.prolific.co/submissions/complete?cc=6F5BF685"}
+                , 10000)
+            }
+        }
+    });
+
+</script>
+</html>
+
+
+<!--
+Authors:    Hannah Dames <damesh@cs.uni-freiburg.de>,
+            Sara Feickert, 
+            Christina Pfeuffer
+
+Cognitive Computation Lab & Cognition, Action, and Sustainability Unit
+University of Freiburg, July 2020
+-->
